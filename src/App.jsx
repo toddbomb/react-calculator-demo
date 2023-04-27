@@ -4,10 +4,11 @@ import OperatorButton from './components/operatorButton'
 import './App.css'
 
 function App() {
-  const [newCalc, setNewCalc] = useState(true);
   const [result, setResult] = useState(null);
   const [nextNumber, setNextNumber] = useState(null);
   const [operator, setOperator] = useState('');
+  const [newCalc, setNewCalc] = useState(true);
+
   const operators=['+', '-', '/', '*'];
   const digits=[1,2,3,4,5,6,7,8,9,0];
 
@@ -53,13 +54,13 @@ function App() {
 
   return (
     <>
-      <h2>{nextNumber != null ? nextNumber : result}</h2>
+      <h2>{nextNumber != null ? nextNumber : result ?? 0}</h2>
       <div className="buttons-container">
         <div className="digits-container">
           {
             digits.map((digit) => {
               return(
-                <DigitButton digit={digit} onClick={onDigitPress} />
+                <DigitButton key={digit} digit={digit} onClick={onDigitPress} />
               )
             })
           }
@@ -68,14 +69,14 @@ function App() {
           {
             operators.map((operator) => {
               return(
-                <OperatorButton operator={operator} onClick={onOperatorPress}/>
+                <OperatorButton key={operator} operator={operator} onClick={onOperatorPress}/>
               )
             })
           }
-          <button onClick={onEqualsPress}>=</button>
+          <button className="equals-button" onClick={onEqualsPress}>=</button>
+          <button className="clear-button" onClick={handleClearPress}>Clear</button>
         </div>
       </div>
-      <button onClick={handleClearPress}>Clear</button>
     </>
   )
 }
